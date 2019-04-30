@@ -12,4 +12,4 @@ const applyCoupon = item => {
 	}
 }
 
-console.log(applyCoupon(item)(10));
+console.log(applyCoupon(item)(10).price);
