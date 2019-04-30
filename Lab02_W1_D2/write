@@ -1,0 +1,17 @@
+01.
+SetTimeout will be executed on Timers phase, schedules a script to be executed after a 
+minimum threshold has elapsed. SetImmediate will be executed on check phase, will execute
+a script when current poll phase completes, does not use queue of functions only checks the 
+queue of I/O event handlers and execute when this queue is finished.
+the execution order will vary depending on context which they are called. If SetImmediate is 
+scheduled within a I/O cycle, it will be executed before any Timers phase, in this case, the 
+SetImmediate will be executed before SetTimeout.
+
+02.
+Process.nextTick() is not part of event loop, it is called and executed before event loop 
+continues, that means it will be processed after the currrent operationis completed, regardless 
+of the current phase of the event loop.
+Process.nextTick() fires more immediately than setImmediate.
+
+03.
+buffer, cluster, fs, http, module, net, path, process, stream, url
