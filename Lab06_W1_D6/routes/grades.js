@@ -8,7 +8,7 @@ let grades = [
     {id: 'st003', name: 'Ann', course: 'CS572', grade: '93'}
 ]
 
-// get all
+// GET all
 router.route('/')
     .get( jsonParser,
         function(req, res, next){
@@ -20,11 +20,27 @@ router.route('/')
             res.send(grades);
             res.end();
         }
+    ) // POST data
+	.post( jsonParser,
+        function(req, res, next){
+            if(req.query){
+                grades.push(req.query);
+                return next();
+            } else {
+                res.status(404).end();
+            }
+        },
+        function(req, res){
+            console.log(grades);
+            res.send(grades);
+            res.end();
+        }
     );
-// get one with query
+// GET one with query
 router.route('/')
     .get( jsonParser,
         function(req, res, next){
+			console.log(req.body);
             console.log(grades.filter(grade => grade.id == req.query.id));
             return next();
         },
@@ -33,7 +49,7 @@ router.route('/')
             res.end();
         }
     );
-// get one with params
+// GET one with params
 router.route('/:id')
     .get( jsonParser,
         function(req, res, next){
@@ -48,22 +64,7 @@ router.route('/:id')
             res.send(grades.filter(grade => grade.id == req.params.id));
             res.end();
         }
-    )
-    .delete( jsonParser,
-        function(req, res, next){
-            if(req.params){
-                console.log(grades.filter(grade => grade.id != req.params.id));
-                return next();
-            } else {
-                res.status(404).end();
-            }
-        }, 
-        function(req, res){
-            grades = grades.filter(grade => grade.id != req.params.id)
-            res.send(grades);
-            res.end();
-        }
-    )
+    ) // PUT data
     .put( jsonParser,
         function(req, res, next){
             if(req.params.id && req.query){
@@ -79,24 +80,21 @@ router.route('/:id')
             res.send(grades);
             res.end();
         }
-    );
-
-router.route('/')
-    .post( jsonParser,
+    ) // DELETE one with params
+	.delete( jsonParser,
         function(req, res, next){
-            if(req.query){
-                grades.push(req.query);
+            if(req.params){
+                console.log(grades.filter(grade => grade.id != req.params.id));
                 return next();
             } else {
                 res.status(404).end();
             }
-        },
+        }, 
         function(req, res){
-            console.log(grades);
+            grades = grades.filter(grade => grade.id != req.params.id)
             res.send(grades);
             res.end();
         }
     );
-
 
 module.exports = router;
