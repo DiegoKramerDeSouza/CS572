@@ -14,11 +14,14 @@ let collection;
 app.use((req, res, next) => {
 	if(!db){
 		client.connect(err => {
-			db = client.db('homework07');
-			collection = db.collection('mycollection');
-			next();
+			if(!err){
+				db = client.db('homework07');
+				collection = db.collection('mycollection');
+				return next();
+			} 
+			res.end('Connection FAIL!');	
 		});
-	} else next();	
+	} else next();
 });
 // Route add by query
 app.post('/add', parserJson, (req, res) => {
