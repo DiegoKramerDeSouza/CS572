@@ -1,0 +1,32 @@
+//Book
+{
+	_id: String ISBN,
+	title: String,
+	edition: String,
+	author: [Array of String],
+	tag: [''],
+	status: ''
+}
+
+//Student
+{
+	_id: String StudentId,
+	name: String,
+	phone: String,
+	location: {
+		address: String,
+		street: String,
+		city: String,
+		state: String,
+		zip: String
+	},
+	borrowed: [{book: Book, returnDate: Date}]
+}
+
+// Book Index
+{tag: 1}
+{author: 1}
+
+// Student Index
+{borrowed: 1}
+{borrowed: 1, name: 1, phone: 1}
