@@ -13,7 +13,7 @@ app.use((req, res, next) => {
 			if(!err){
 				db = client.db('homework08');
 				res.db = db;
-				res.db.collection('restaurants').createIndex({resName: 'text'});
+				res.db.collection('restaurants').createIndex({name: 'text'});
 				return next();
 			}
 			res.end('Connection fail!');
@@ -136,11 +136,73 @@ app.get('/15', (req, res) => {
 app.get('/16', (req, res) => {
 	res.db.collection('restaurants')
 		.find({"grades.score": {$not: {$gt: 10}}})
-		.project({restaurant_id:1, name:1, cuisine:1, district:1, grades:1})
+		.project({restaurant_id:1, name:1, cuisine:1, district:1})
 		.toArray((err, doc) =>{
 			res.json(doc);
 		});
 });
+// 17
+app.get('/17', (req, res) => {
+	res.db.collection('restaurants')
+		.find({"address.coord.1": {$gt: 42, $lt: 52}})
+		.sort({name: 1})
+		.project({_id:0, restaurant_id:1, name:1, "address":1})
+		.toArray((err, doc) =>{
+			res.json(doc);
+		});
+});
+// 18
+app.get('/18', (req, res) => {
+	res.db.collection('restaurants')
+		.find()
+		.sort({name: 1})
+		.project({_id:0})
+		.toArray((err, doc) =>{
+			res.json(doc);
+		});
+});
+// 19
+app.get('/19', (req, res) => {
+	res.db.collection('restaurants')
+		.find()
+		.sort({name: -1})
+		.project({_id:0})
+		.toArray((err, doc) =>{
+			res.json(doc);
+		});
+});
+// 20
+app.get('/20', (req, res) => {
+	res.db.collection('restaurants')
+		.find()
+		.sort({cuisine: 1, district:-1})
+		.project({_id:0, cuisine:1, district:1, name:1})
+		.toArray((err, doc) =>{
+			res.json(doc);
+		});
+});
+// 21
+app.get('/21', (req, res) => {
+	res.db.collection('restaurants')
+		.find({"address.coord": {$type: "double"}})
+		.sort({"address.coord":1})
+		.project({_id:0, "address.coord":1, name:1})
+		.toArray((err, doc) =>{
+			res.json(doc);
+		});
+});
+// 22
+app.get('/22', (req, res) => {
+	res.db.collection('restaurants')
+		.find({"name": {$regex: "^Mad"}})
+		//.find({$text: {$search: "Mad"}}, {$hint: {name: 'text'}})
+		.sort({"name":1})
+		.project({_id:0, "address.coord":1, name:1, cuisine:1})
+		.toArray((err, doc) =>{
+			res.json(doc);
+		});
+});
+
 // Fix cuisine: "American " to "American"
 // app.get('/fix', (req, res) => {
 // 	// res.db.collection('restaurants').updateMany({"cuisine": "American "}, {$set: {"cuisine": "American"}}, (err, doc) => {
