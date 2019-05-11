@@ -25,25 +25,23 @@ app.use((req, res, next) => {
     } else next();
 });
 
-app.get('/secret', (req, res) => {
-    let key;
+app.get('/secret', async (req, res) => {
+
     // With findOne
-    collection.findOne({}, (err, data) => {
-        key = simple(data.key);
-        res.send(key.decrypt(data.message));           
-    });
+    let msg = await collection.findOne({});
+    let key = await simple(msg.key);
+    res.send(key.decrypt(msg.message));   
+    
     // With find
-    /*
-    collection.find()
-        .project({key: 1, message: 1})
-        .toArray((err, doc) => {
-            doc.forEach(data => {
-                key = simple(data.key);
-                res.send(key.decrypt(data.message));
-            });            
-        }
-    );
-    */ 
+    // collection.find()
+    //     .toArray((err, doc) => {
+    //         doc.forEach(data => {
+    //             key = simple(data.key);
+    //             res.send(key.decrypt(data.message));
+    //         });            
+    //     }
+    // );
+
 });
 // Secret Message: Welcome to MongoDB week :)
 
