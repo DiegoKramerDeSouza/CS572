@@ -1,0 +1,20 @@
+<h1>Counter</h1>
+
+<br/>
+<app-counter [counter]="counter" [componentCounterValue]="componentCounterValue" (counterChange)="counterChanged($event)">
+</app-counter>
+<br/>
+<span>Component counter 1 value: {{componentCounterValue}} </span>
+
+<br/>
+<br/>
+
+<app-counter [counter]="counter" [componentCounterValue2]="componentCounterValue2" (counterChange)="counterChanged2($event)">
+</app-counter>
+<br/>
+<span>Component counter 2 value: {{componentCounterValue2}} </span>
+
+<br/>
+<br/>
+
+
