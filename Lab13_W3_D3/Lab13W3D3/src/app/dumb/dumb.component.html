@@ -1,0 +1,17 @@
+
+<br/>
+<h2>Visible div: [isVisible]=true</h2>
+<div [isVisible]="visible">Custom Directive 1 isVisible</div><br/>
+<h2>Invisible div: [isVisible]=false</h2>
+<div [isVisible]="false">Custom Directive 1 isVisible</div>
+<hr/>
+<h2>Double click it!</h2>
+<ul>
+    <li [makeBigger] [style.font-size.px]="size" *ngFor="let obj of dataObj" >
+        {{obj}}
+    </li>
+</ul>
+<hr/>
+<h2>Multi Pipe: {{multiText}}</h2>
+<p>{{ someText | multi:multiText }}</p>
+
