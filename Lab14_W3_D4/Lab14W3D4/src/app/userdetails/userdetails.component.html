@@ -1,0 +1,25 @@
+<h3>User details:</h3>
+<ul *ngFor="let data of users">
+    <li><b>
+        UUID: 
+        {{data.login.uuid}}
+        </b>
+    </li>
+    <li>
+        NAME: 
+        {{data.name.first | uppercase}} 
+        {{data.name.last | uppercase}}
+    </li>
+    <li>
+        AGE: 
+        {{data.dob.age}}
+    </li>
+    <li>
+        CELL: 
+        {{data.cell}}
+    </li>
+    <li>
+        EMAIL: 
+        {{data.email}}
+    </li>
+</ul>

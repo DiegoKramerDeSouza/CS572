@@ -1,0 +1,9 @@
+<h3>Users:</h3>
+<ul>
+    <li *ngFor="let data of users">
+        {{data.name.first | uppercase}}&nbsp;
+        {{data.name.last | uppercase}} 
+        <br/>
+        UUID: <a [routerLink] = "['..', 'user', data.login.uuid]">{{data.login.uuid}}</a>
+    </li>
+</ul>

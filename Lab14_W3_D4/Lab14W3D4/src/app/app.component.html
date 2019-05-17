@@ -1,0 +1,9 @@
+
+<h1>App Check Users</h1>
+<a [routerLink]="['']">Home</a>&nbsp;
+<a [routerLink]="['users']">Users</a>&nbsp;
+<input [placeholder]='placeholder' (input)='inputUser()' #userId>&nbsp;
+: <a [routerLink]="['user', userUUID]">Find User</a>
+<hr/>
+<br/>
+<router-outlet></router-outlet>
